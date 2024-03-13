@@ -35,3 +35,10 @@
 |` `| **8. 모듈 패턴** | 8.1 캡슐화와 최소 노출의 원칙(POLE)<br>8.2 모듈이란<br>8.3 Node.js의 CommonJS 모듈<br>8.4 최신 ES 모듈<br>8.5 정리 |
 |` `| **APPENDIX A. 한 걸음 더** | A.1 암시적 스코프<br>A.2 익명 함수 vs. 기명 함수<br>A.3 호이스팅: 함수와 변수<br>A.4 var에 대한 변론<br>A.5 TDZ<br>A.6 동기 콜백도 여전히 클로저일까?<br>A.7 클래식 모듈 변형 |
 |` `| **APPENDIX B. 연습 문제** | B.1 구슬과 양동이<br>B.2 클로저 1<br>B.3 클로저 2<br>B.4 클로저 3<br>B.5 모듈<br>B.6 모범 답안 |
+
+<br>
+
+## Contributors
+<a href="https://github.com/diving-javascript/you-dont-know-js-yet/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=diving-javascript/you-dont-know-js-yet" />
+</a>
