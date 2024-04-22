@@ -327,3 +327,5 @@ withStrict();
 - [ECMAScript proposals](https://github.com/tc39/proposals)
 - TC39 Smooshgate 케이스: [ECMA TC39: “SmooshGate” was officially resolved by renaming flatten to flat](https://developer.chrome.com/blog/smooshgate)
 - [B, Additional ECMAScript Features for Web Browsers](https://tc39.es/ecma262/multipage/additional-ecmascript-features-for-web-browsers.html)
+- [MDN, 웹어셈블리(ko)](https://developer.mozilla.org/ko/docs/WebAssembly)
+- [MDN, 웹어셈블리 개념(ko)](https://developer.mozilla.org/ko/docs/WebAssembly/Concepts)
