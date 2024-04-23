@@ -14,6 +14,8 @@
     - [2.5.2 강제 변환](#252-강제-변환)
   - [2.6 코드 구조화 패턴](#26-코드-구조화-패턴)
     - [2.6.1 클래스](#261-클래스)
+    - [상속](#상속)
+    - [2.6.2 모듈](#262-모듈)
   - [2.7 더 깊은 토끼 구로](#27-더-깊은-토끼-구로)
 
 <br>
@@ -235,7 +237,134 @@ class Page{
   }
   print(){console.log(this.text)}
 }
+
+class Notebook{
+  constructor(){
+    this.pages = [];
+
+  }
+
+  addPage(text){
+    var page = new Page(text);
+    this.pages.push(page)
+  }
+  print(){
+    for (let page of this.pages){
+      page.print()
+    }
+  }
+}
+
+var mathNotes = new Notebook();
+mathNotes.addPage("기초 연산: + - * / ...");
+mathNotes.addPage("삼각법: sin con tan ...")
+
+mathNotes.print()
+
 ```
+
+클래스 매커니즘을 사용하면 데이터와 데이터의 동작을 한곳에 묶어 구조화 할 수 있습니다.
+물론 클래스 없이도 동일한 결과물을 내주는 프로그램을 만들 수 있긴 합니다.
+하지만 클래스가 없다면 체계적이지 않고 가독성이 떨어지며, 유지 보수하기 어려운 프로그램이 될 가능성이 높습니다.
+
+### 상속
+
+클래스 지향 설계는 상속과 다형성을 빼놓고 생각할 수 없습니다.
+
+```
+class Publication{
+  constructor(title,author, pubDate){
+    this.title = title;
+    this.author= author;
+    this.pubDate = pubDate;
+  }
+
+  print(){
+    console.log(`
+    제목: ${this.title}
+    저자: ${this.author}
+    발행일: ${this.pubDate}
+    `)
+  }
+}
+```
+
+Publication 클래스에 출판에 필요한 동작이 정의되어 있습니다.
+이번에는 좀 더 구체적인 출판 형태인 책이나 블로그 포스팅을 코드로 구현
+
+```
+class Book extends Publication{
+  constructor(bookDetails){
+    super(
+      bookDetails.title,
+      bookDetails.author,
+      bookDetails.publishedOn
+    );
+    this.publisher = bookDetails.publisher;
+    this.ISBN = bookDetails.ISBN;
+  }
+
+  print(){
+    super.print();
+    console.log(`
+    출판사: ${this.publisher}
+    ISBN: ${this.ISBN})
+  }
+}
+
+class BlogPost extends Publication{
+  contructor(title,author,pubDate,URL){
+    super(title,author,pubDate);
+    this.URL =URL;
+  }
+
+  print(){
+    super.print();
+    console.log(`URL: ${this.URL}`);
+  }
+}
+```
+
+Book과 BlogPost 클래스 모두 extends라는 키워드를 사용해 Publication 클래스에서 정의한 동작을 확장해서 사용하고 있습니다. 각 클래스 생성자 내에 있는 super()는 부모 클래스인 Publication의 생성자를 자식클래스에서도 사용할 수 있도록 코드를 다시 작성하지 않아도 출판 타입에 맞게 초기화 할 수 있습니다.
+
+이번에는 자식 클래스를 사용한 예시
+
+```
+var YDKJSY = new Book({
+  title: "You don't know JS yet",
+  author: "카일 심슨",
+  publishedOn: "2020년 1월",
+  publisher: "독립 출판",
+  ISBN: "979-8602477429:
+});
+
+YDKJSY.print();
+// 제목:
+// 저자:
+// 발행일
+// 출판사:
+// ISBN:
+
+var forAgaintLet = new BlogPost(
+  "For and against let",
+  "카일 심슨",
+  "2014년 10월 27일",
+  "https://davidwalsh.name/for-and-against-let"
+)
+
+forAgaintLet.print()
+```
+
+두 자식 클래스의 인스턴스를 통해 부모 클래스인 Publication 상속받아 새롭게 재정의한 메서드인 print()를 호출 할 수 있었다는 점입니다. 자식 클래스 Book과 BlogPost 각각에 정의된 메서드 print() 내부에서는 super.print()가 호출되면서 부모 클래스에 정의된 메서드 print()를 그대로 상속받아 사용합니다.
+
+이렇게 상속 받은 메서드를 새롭게 정의한 메서드의 이름이 동일하고 공존할 수 있는 걸 다형성이라고 합니다.
+상속은 클래스라는 독립된 논리적 공간에 데이터와 행동을 체계화 할 수 있도록 만드는 강력한 도구입니다.
+
+### 2.6.2 모듈
+
+모듈 패턴은 클래스와 마찬가지로 논리적 단위 기준으로 데이터와 행동을 그룹화 하는데 목적이 있습니다.
+그런데 모듈에는 클래스와 다른 중요한 몇 가지 차이점이 있습니다.
+가장 눈에 띄는 점은 문법입니다.
 
 <br>
 
