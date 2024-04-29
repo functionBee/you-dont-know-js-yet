@@ -14,6 +14,7 @@
     - [3.4.1 객체 연결 장치](#341-객체-연결-장치)
     - [3.4.2 `this` 다시 보기](#342-this-다시-보기)
   - [3.5 ‘왜?’라고 질문하기](#35-왜라고-질문하기)
+  - [참조](#참조)
 
 <br>
 
@@ -312,3 +313,10 @@ mathHomework.study();
 <br>
 
 ## 3.5 ‘왜?’라고 질문하기
+
+
+<br>
+
+## 참조
+
+- [Chapter 3: Digging to the Roots of JS](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/get-started/ch3.md)
