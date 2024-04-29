@@ -58,11 +58,6 @@ while(!next.done) {
 - `value`: 현재 값
 - `done`: 반복이 끝났는지 여부를 나타내는 불리언 값
 
-- **참조:**
-  - [Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_generators)
-  - [Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator)
-
-
 ```js
 const numbers = [1, 2, 3, 4, 5];
 
@@ -73,6 +68,10 @@ for (const number of iterator) {
   console.log(number);
 }
 ```
+
+- **참조:**
+  - [Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_generators)
+  - [Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator)
 
 ### 3.1.1 이터레이터 소비하기
 
