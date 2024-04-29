@@ -7,7 +7,9 @@
     - [이터레이터(iterator)](#이터레이터iterator)
     - [이터레이터 패턴(iterator pattern)](#이터레이터-패턴iterator-pattern)
     - [3.1.1 이터레이터 소비하기](#311-이터레이터-소비하기)
+    - [이터레이션 프로토콜(Iteration protocols)](#이터레이션-프로토콜iteration-protocols)
     - [3.1.2 이터러블(iterable)](#312-이터러블iterable)
+    - [(추가) `iterator`와 `iterable`의 차이점](#추가-iterator와-iterable의-차이점)
   - [3.2 클로저(closure)](#32-클로저closure)
   - [3.3 `this` 키워드](#33-this-키워드)
   - [3.4 프로토타입](#34-프로토타입)
@@ -54,6 +56,12 @@ while(!next.done) {
   - [JavaScript Iterator Design Pattern](https://www.dofactory.com/javascript/design-patterns/iterator)
 
 ### 3.1.1 이터레이터 소비하기
+
+### 이터레이션 프로토콜(Iteration protocols)
+
+- **참조:**
+  - [Iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
+  - [Poiemawb, 이터레이션 프로토콜](https://poiemaweb.com/es6-iteration-for-of)
 
 ```js
 // 어떤 데이터 소스의 반복자가 주어졌습니다:
@@ -142,6 +150,13 @@ for (let [idx,val] of arr.entries()) {
 // [1]: 20
 // [2]: 30
 ```
+
+<br>
+
+### (추가) `iterator`와 `iterable`의 차이점
+
+- **참조**:
+  - [Iterators and Iterables in Javascript](https://www.connectwise.com/blog/engineering/iterators-and-iterables-in-javascript#:~:text=Iterators%20provide%20a%20standardized%20way,to%20suit%20their%20specific%20needs.) 
 
 <br>
 
