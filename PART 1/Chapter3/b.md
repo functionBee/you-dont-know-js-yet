@@ -48,7 +48,10 @@ while(!next.done) {
 }
 ```
 
-- **참조:** [MDN: Generator.prototype.next()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
+- **참조:** 
+  - [MDN: Generator.prototype.next()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
+  - [SQL SELECT Statement](https://www.w3schools.com/sql/sql_select.asp)
+  - [JavaScript Iterator Design Pattern](https://www.dofactory.com/javascript/design-patterns/iterator)
 
 ### 3.1.1 이터레이터 소비하기
 
