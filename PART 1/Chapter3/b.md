@@ -4,12 +4,13 @@
 
 - [CHAPTER 3 자바스크립트 뿌리 파헤치기](#chapter-3-자바스크립트-뿌리-파헤치기)
   - [3.1 이터레이션(iteration)](#31-이터레이션iteration)
-    - [이터레이터(iterator)](#이터레이터iterator)
     - [이터레이터 패턴(iterator pattern)](#이터레이터-패턴iterator-pattern)
+    - [이터레이터(iterator)](#이터레이터iterator)
     - [3.1.1 이터레이터 소비하기](#311-이터레이터-소비하기)
     - [이터레이션 프로토콜(Iteration protocols)](#이터레이션-프로토콜iteration-protocols)
+    - [이터레이션(iteration)](#이터레이션iteration)
     - [3.1.2 이터러블(iterable)](#312-이터러블iterable)
-    - [(추가) `iterator`와 `iterable`의 차이점](#추가-iterator와-iterable의-차이점)
+    - [(추가) `iterator`와 `iterable`, `iteration`의 차이점](#추가-iterator와-iterable-iteration의-차이점)
   - [3.2 클로저(closure)](#32-클로저closure)
   - [3.3 `this` 키워드](#33-this-키워드)
   - [3.4 프로토타입](#34-프로토타입)
@@ -22,14 +23,9 @@
 
 ## 3.1 이터레이션(iteration)
 
-### 이터레이터(iterator)
-
-- **참조:**
-  - [Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_generators)
-  - [Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator)
-
-
 ### 이터레이터 패턴(iterator pattern)
+
+자바스크립트에서 Iterator 패턴은 컬렉션의 요소들을 순차적으로 접근할 수 있도록 하는 디자인 패턴입니다. 이 패턴은 컬렉션 자체의 구조를 노출하지 않고 요소들을 하나씩 꺼내는 인터페이스를 제공합니다.
 
 ```js
 let colours = ['Red', 'Green', 'Blue', 'Yellow', 'Purple'];
@@ -55,13 +51,44 @@ while(!next.done) {
   - [SQL SELECT Statement](https://www.w3schools.com/sql/sql_select.asp)
   - [JavaScript Iterator Design Pattern](https://www.dofactory.com/javascript/design-patterns/iterator)
 
+### 이터레이터(iterator)
+
+이터레이터는 자바스크립트에서 반복 가능한 객체(iterable)에서 값을 하나씩 추출하는 데 사용되는 객체입니다. 이터레이터는 `next()` 메서드를 가지고 있으며, 이 메서드를 호출하면 다음 값이 담긴 객체를 반환합니다. 반환되는 객체는 `value` 속성과 `done` 속성을 가지고 있습니다.
+
+- `value`: 현재 값
+- `done`: 반복이 끝났는지 여부를 나타내는 불리언 값
+
+- **참조:**
+  - [Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_generators)
+  - [Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator)
+
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+
+console.log(Symbol.iterator in numbers) // true
+
+// for...of 루프 사용
+for (const number of iterator) {
+  console.log(number);
+}
+```
+
 ### 3.1.1 이터레이터 소비하기
 
 ### 이터레이션 프로토콜(Iteration protocols)
 
+이터레이션 프로토콜은 JavaScript에서 반복 가능한 객체를 정의하는 표준 방법입니다. 이 프로토콜은 `Symbol.iterator` 메서드를 사용하여 iteration을 반환하는 객체를 정의합니다. iteration는 `next()` 메서드를 사용하여 반복 가능한 객체의 각 요소에 접근할 수 있는 객체입니다.
+
 - **참조:**
   - [Iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
   - [Poiemawb, 이터레이션 프로토콜](https://poiemaweb.com/es6-iteration-for-of)
+
+
+### 이터레이션(iteration)
+
+- **참조**
+  - [JS 📚 이터러블 & 이터레이터 - 💯완벽 이해](https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0-%F0%9F%92%AF%EC%99%84%EB%B2%BD-%EC%9D%B4%ED%95%B4)
 
 ```js
 // 어떤 데이터 소스의 반복자가 주어졌습니다:
@@ -153,7 +180,7 @@ for (let [idx,val] of arr.entries()) {
 
 <br>
 
-### (추가) `iterator`와 `iterable`의 차이점
+### (추가) `iterator`와 `iterable`, `iteration`의 차이점
 
 - **참조**:
   - [Iterators and Iterables in Javascript](https://www.connectwise.com/blog/engineering/iterators-and-iterables-in-javascript#:~:text=Iterators%20provide%20a%20standardized%20way,to%20suit%20their%20specific%20needs.) 
