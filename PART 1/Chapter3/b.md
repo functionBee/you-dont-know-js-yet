@@ -19,6 +19,31 @@
 
 ## 3.1 이터레이션(iteration)
 
+**이터레이터(iterator)**
+
+이터레이터는 자바스크립트에서 반복 가능한 객체(iterable)에서 값을 하나씩 추출하는 데 사용되는 객체입니다. 이터레이터는 `next()` 메서드를 가지고 있으며, 이 메서드를 호출하면 다음 값이 담긴 객체를 반환합니다. 반환되는 객체는 `value` 속성과 `done` 속성을 가지고 있습니다.
+
+- `value`: 현재 값
+- `done`: 반복이 끝났는지 여부를 나타내는 불리언 값
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+
+console.log(Symbol.iterator in numbers) // true
+
+// for...of 루프 사용
+for (const number of iterator) {
+  console.log(number);
+}
+```
+
+- **참조:**
+  - [Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_generators)
+  - [Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator)
+  - [MDN: Generator.prototype.next()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
+
+<br>
+
 **이터레이터 패턴(iterator pattern)**
 
 자바스크립트에서 Iterator 패턴은 컬렉션의 요소들을 순차적으로 접근할 수 있도록 하는 디자인 패턴입니다. 이 패턴은 컬렉션 자체의 구조를 노출하지 않고 요소들을 하나씩 꺼내는 인터페이스를 제공합니다.
@@ -43,37 +68,19 @@ while(!next.done) {
 ```
 
 - **참조:** 
-  - [MDN: Generator.prototype.next()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)
   - [SQL SELECT Statement](https://www.w3schools.com/sql/sql_select.asp)
   - [JavaScript Iterator Design Pattern](https://www.dofactory.com/javascript/design-patterns/iterator)
 
 <br>
 
-**이터레이터(iterator)**
+### 3.1.1 이터레이터 소비하기
 
-이터레이터는 자바스크립트에서 반복 가능한 객체(iterable)에서 값을 하나씩 추출하는 데 사용되는 객체입니다. 이터레이터는 `next()` 메서드를 가지고 있으며, 이 메서드를 호출하면 다음 값이 담긴 객체를 반환합니다. 반환되는 객체는 `value` 속성과 `done` 속성을 가지고 있습니다.
+**이터레이션(iteration)**
 
-- `value`: 현재 값
-- `done`: 반복이 끝났는지 여부를 나타내는 불리언 값
-
-```js
-const numbers = [1, 2, 3, 4, 5];
-
-console.log(Symbol.iterator in numbers) // true
-
-// for...of 루프 사용
-for (const number of iterator) {
-  console.log(number);
-}
-```
-
-- **참조:**
-  - [Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_generators)
-  - [Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator)
+- **참조**
+  - [JS 📚 이터러블 & 이터레이터 - 💯완벽 이해](https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0-%F0%9F%92%AF%EC%99%84%EB%B2%BD-%EC%9D%B4%ED%95%B4)
 
 <br>
-
-### 3.1.1 이터레이터 소비하기
 
 **이터레이션 프로토콜(Iteration protocols)**
 
@@ -82,14 +89,6 @@ for (const number of iterator) {
 - **참조:**
   - [Iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
   - [Poiemawb, 이터레이션 프로토콜](https://poiemaweb.com/es6-iteration-for-of)
-
-
-<br>
-
-**이터레이션(iteration)**
-
-- **참조**
-  - [JS 📚 이터러블 & 이터레이터 - 💯완벽 이해](https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94-%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0-%F0%9F%92%AF%EC%99%84%EB%B2%BD-%EC%9D%B4%ED%95%B4)
 
 ```js
 // 어떤 데이터 소스의 반복자가 주어졌습니다:
