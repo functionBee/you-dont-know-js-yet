@@ -47,6 +47,8 @@ while(!next.done) {
   - [SQL SELECT Statement](https://www.w3schools.com/sql/sql_select.asp)
   - [JavaScript Iterator Design Pattern](https://www.dofactory.com/javascript/design-patterns/iterator)
 
+<br>
+
 **이터레이터(iterator)**
 
 이터레이터는 자바스크립트에서 반복 가능한 객체(iterable)에서 값을 하나씩 추출하는 데 사용되는 객체입니다. 이터레이터는 `next()` 메서드를 가지고 있으며, 이 메서드를 호출하면 다음 값이 담긴 객체를 반환합니다. 반환되는 객체는 `value` 속성과 `done` 속성을 가지고 있습니다.
@@ -69,6 +71,8 @@ for (const number of iterator) {
   - [Iterators and generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_generators)
   - [Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator)
 
+<br>
+
 ### 3.1.1 이터레이터 소비하기
 
 **이터레이션 프로토콜(Iteration protocols)**
@@ -79,6 +83,8 @@ for (const number of iterator) {
   - [Iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
   - [Poiemawb, 이터레이션 프로토콜](https://poiemaweb.com/es6-iteration-for-of)
 
+
+<br>
 
 **이터레이션(iteration)**
 
@@ -112,6 +118,8 @@ var vals = [ ...it ];
 // 인수 위치를 차지하는 함수를 호출합니다.
 doSomethingUseful( ...it );
 ```
+
+<br>
 
 ### 3.1.2 이터러블(iterable)
 
