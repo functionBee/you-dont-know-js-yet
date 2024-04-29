@@ -43,3 +43,10 @@
 <a href="https://github.com/diving-javascript/you-dont-know-js-yet/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=diving-javascript/you-dont-know-js-yet" />
 </a>
+
+
+<br>
+
+
+## 참고
+- [You Don't Know JS Yet (book series) - 2nd Edition](https://github.com/getify/You-Dont-Know-JS)
