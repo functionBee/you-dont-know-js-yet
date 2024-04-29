@@ -3,7 +3,7 @@
 <br>
 
 - [CHAPTER 3 자바스크립트 뿌리 파헤치기](#chapter-3-자바스크립트-뿌리-파헤치기)
-  - [3.1 이터레이션(iterator)](#31-이터레이션iterator)
+  - [3.1 이터레이션(iteration)](#31-이터레이션iteration)
     - [이터레이터 패턴(iterator pattern)](#이터레이터-패턴iterator-pattern)
     - [3.1.1 이터레이터 소비하기](#311-이터레이터-소비하기)
     - [3.1.2 이터러블(iterable)](#312-이터러블iterable)
@@ -16,7 +16,7 @@
 
 <br>
 
-## 3.1 이터레이션(iterator)
+## 3.1 이터레이션(iteration)
 
 ### 이터레이터 패턴(iterator pattern)
 
