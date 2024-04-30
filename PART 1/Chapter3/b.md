@@ -212,8 +212,15 @@ for (let btnName of buttonNames.values()) {
 // Button 2
 ```
 
+- **참조**:
+  - [Object.values()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/values)
+  - [Array.prototype.values()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/values)
+  - [Map.prototype.values()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Map/values)
+  - [FormData.values()](https://developer.mozilla.org/ko/docs/Web/API/FormData/values)
+  - [NodeList.values()](https://developer.mozilla.org/ko/docs/Web/API/NodeList/values)
+
 ```js
-// 또는 배열 반복에서 인덱스 및 값을 원한다면 entries()메서드로 이터레이터(iterator)를 만들 수 있습니다.
+// 또는 배열 반복에서 인덱스 및 값을 원한다면 entries() 메서드로 이터레이터(iterator)를 만들 수 있습니다.
 var arr = [ 10, 20, 30 ];
 
 for (let [idx,val] of arr.entries()) {
@@ -223,6 +230,13 @@ for (let [idx,val] of arr.entries()) {
 // [1]: 20
 // [2]: 30
 ```
+
+- **참조**:
+  - [Object.entries()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/entries)
+  - [Array.prototype.entries()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)
+  - [Map.prototype.entries()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Map/entries)
+  - [NodeList.entries()](https://developer.mozilla.org/ko/docs/Web/API/NodeList/entries)
+  - [FormData.entries()](https://developer.mozilla.org/ko/docs/Web/API/FormData/entries)
 
 <br>
 
