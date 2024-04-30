@@ -21,10 +21,14 @@
 
 **이터레이터(iterator)**
 
-이터레이터는 자바스크립트에서 반복 가능한 객체(iterable)에서 값을 하나씩 추출하는 데 사용되는 객체입니다. 이터레이터는 `next()` 메서드를 가지고 있으며, 이 메서드를 호출하면 다음 값이 담긴 객체를 반환합니다. 반환되는 객체는 `value` 속성과 `done` 속성을 가지고 있습니다.
+자바스크립트에서 이터레이터(iterator)는 시퀀스를 정의하고 종료 시 반환 값이 있는 객체입니다.
 
-- `value`: 현재 값
-- `done`: 반복이 끝났는지 여부를 나타내는 불리언 값
+```js
+let iterator = sequence[Symbol.iterator]();
+let next = iterator.next();
+```
+
+- 이터레이터(iterator)는 `next()` 메서드를 가지고 있어 Iterator 프로토콜을 구현할 수 있는 모든 객체입니다.
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
@@ -67,13 +71,72 @@ while(!next.done) {
 }
 ```
 
+- 수십 년 동안 존재해 왔으며, 데이터를 조각조각 소비하는 표준적인 접근법을 제공하여 가독성과 효율성을 향상시킵니다.
+- 큰 관계형 데이터베이스 'SELECT' 쿼리와 같이 반복적인 처리가 필요한 큰 데이터 세트에 유용합니다.
+- 데이터 소스에 연결된 "이터레이터" 데이터 구조를 사용하며, `next()`와 같은 메서드를 갖고 있습니다.
 - **참조:** 
   - [SQL SELECT Statement](https://www.w3schools.com/sql/sql_select.asp)
   - [JavaScript Iterator Design Pattern](https://www.dofactory.com/javascript/design-patterns/iterator)
 
 <br>
 
+**`next()` 메서드**
+
+`next()`는 JavaScript에서 이터레이터 객체와 함께 사용되는 내장 메서드입니다.
+
+```js
+let iterator = sequence[Symbol.iterator]();
+let next = iterator.next();
+while(!next.done) {
+    console.log(next.value);
+    next = iterator.next();
+}
+```
+
+- `next()` 메서드는 두 가지 속성을 가진 객체를 반환합니다: `value`와 `done`.
+    - `value`는 시퀀스에서의 다음 값을 나타냅니다.
+    - `done`은 시퀀스의 마지막 값이 이미 소비되었는지 여부를 나타내는 불리언 값입니다. 마지막 값이 이미 소비되었을 경우 `done`은 true입니다.
+    - `done`이 거짓(false)인 경우, next()를 다시 호출하여 다음 값을 얻을 수 있습니다.
+- 이 메서드는 이터레이터가 시퀀스의 끝에 도달할 때까지 반복적으로 호출될 수 있습니다. 이를 통해 이터레이터는 시퀀스의 모든 요소를 차례대로 방문할 수 있습니다.
+- 이는 데이터의 순차적인 처리를 가능하게 하며, 이터레이터 패턴의 핵심적인 부분입니다.
+
+<br>
+
 ### 3.1.1 이터레이터 소비하기
+
+`for..of` 루프와 스프레드 연산자 모두 이터레이터(iterator) 소비 프로토콜(consumption protocol)을 따라 이터레이터(iterator)에서 가능한 모든 값을 검색합니다.
+
+- **`for..of` 루프 사용**: 반복자를 소비하는 표준화된 방법. 각 결과를 하나씩 반복합니다.
+    
+    ```js
+    // 어떤 데이터 소스의 이터레이터(iterator)가 주어졌습니다:
+    let it = /* .. */;
+
+    // 한 번에 하나씩 결과를 반복합니다.
+    for(let value of iterator) {
+        console.log(`Iterator value: ${ value }`);
+    }
+
+    // Iterator value: ..
+    // Iterator value: ..
+    // ..
+    ```
+
+- **스프레드 연산자 `...` 사용**: 반복자를 배열이나 함수 호출로 펼칩니다. 모든 값을 한 번에 처리하는 데 유용합니다.
+    
+    ```js
+    // 이터레이터(iterator)를 배열로 퍼뜨립니다.
+    // 각 반복된 값이
+    // 배열 요소 위치를 차지합니다.
+    let array = [...iterator];
+
+    // 이터레이터(iterator)를 함수로 퍼뜨립니다.
+    // 각 반복된 값이
+    // 인수 위치를 차지하는 함수를 호출합니다.
+    let functionResult = someFunction(...iterator);
+    ```
+
+<br>
 
 **이터레이션(iteration)**
 
@@ -84,68 +147,43 @@ while(!next.done) {
 
 **이터레이션 프로토콜(Iteration protocols)**
 
-이터레이션 프로토콜은 JavaScript에서 반복 가능한 객체를 정의하는 표준 방법입니다. 이 프로토콜은 `Symbol.iterator` 메서드를 사용하여 iteration을 반환하는 객체를 정의합니다. iteration는 `next()` 메서드를 사용하여 반복 가능한 객체의 각 요소에 접근할 수 있는 객체입니다.
+이터레이션 프로토콜은 JavaScript에서 반복 가능한 객체를 정의하는 표준 방법입니다. 이 프로토콜은 `Symbol.iterator` 메서드를 사용하여 iteration을 반환하는 객체를 정의합니다.
 
 - **참조:**
   - [Iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
   - [Poiemawb, 이터레이션 프로토콜](https://poiemaweb.com/es6-iteration-for-of)
 
-```js
-// 어떤 데이터 소스의 반복자가 주어졌습니다:
-var it = /* .. */;
-
-// 한 번에 하나씩 결과를 반복합니다.
-for (let val of it) {
-    console.log(`Iterator value: ${ val }`);
-}
-// Iterator value: ..
-// Iterator value: ..
-// ..
-```
-
-```js
-// 반복자를 배열로 퍼뜨립니다.
-// 각 반복된 값이
-// 배열 요소 위치를 차지합니다.
-var vals = [ ...it ];
-```
-
-
-```js
-// 반복자를 함수로 퍼뜨립니다.
-// 각 반복된 값이
-// 인수 위치를 차지하는 함수를 호출합니다.
-doSomethingUseful( ...it );
-```
 
 <br>
 
 ### 3.1.2 이터러블(iterable)
 
+- 이터러블은 순회할 수 있는 값을 뜻합니다.
+- 자바스크립트(ES6)에서는 문자열, 배열, 맵, 세트와 같은 기본 데이터 구조가 반복 가능합니다.
+- 배열과 문자열은 반복될 수 있으며, 스프레드 연산자(`...`)를 통해 배열을 얕은 복사를 할 수 있습니다.
+
 ```js
-// 배열은 반복 가능합니다.
+// 배열
 var arr = [ 10, 20, 30 ];
-
 for (let val of arr) {
-    console.log(`Array value: ${ val }`);
+    console.log(`배열 값: ${ val }`);
 }
-// Array value: 10
-// Array value: 20
-// Array value: 30
-```
 
-```js
-var arrCopy = [ ...arr ];
-```
+// 배열 복사
+var arrCopy = [...arr];
 
-```js
+// 문자열
 var greeting = "Hello world!";
+
+// 스프레드 연산자를 사용하여 한 번에 한 문자씩 문자열의 문자를 반복
 var chars = [ ...greeting ];
 
-chars;
+console.log(chars); 
 // [ "H", "e", "l", "l", "o", " ",
 //   "w", "o", "r", "l", "d", "!" ]
 ```
+
+- `Map` 데이터 구조는 객체 키와 값을 연결하고 기본적으로 항목(키-값 튜플)을 반복합니다
 
 ```js
 // 두 개의 DOM 요소, `btn1`과 `btn2`가 주어졌습니다.
@@ -153,7 +191,11 @@ chars;
 var buttonNames = new Map();
 buttonNames.set(btn1,"Button 1");
 buttonNames.set(btn2,"Button 2");
+```
 
+- `for..of` 루프에서 "배열 디스트럭처링" ([btn,btnName])을 사용하여 튜플을 키/값 쌍으로 소비할 수 있습니다.
+
+```js
 for (let [btn,btnName] of buttonNames) {
     btn.addEventListener("click",function onClick(){
         console.log(`Clicked ${ btnName }`);
@@ -162,6 +204,7 @@ for (let [btn,btnName] of buttonNames) {
 ```
 
 ```js
+// buttonNames 맵의 값만 소비하려면 values()를 호출하여 값만 있는 이터레이터(iterator)를 얻을 수 있습니다.
 for (let btnName of buttonNames.values()) {
     console.log(btnName);
 }
@@ -169,7 +212,15 @@ for (let btnName of buttonNames.values()) {
 // Button 2
 ```
 
+- **참조**:
+  - [Object.values()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/values)
+  - [Array.prototype.values()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/values)
+  - [Map.prototype.values()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Map/values)
+  - [FormData.values()](https://developer.mozilla.org/ko/docs/Web/API/FormData/values)
+  - [NodeList.values()](https://developer.mozilla.org/ko/docs/Web/API/NodeList/values)
+
 ```js
+// 또는 배열 반복에서 인덱스 및 값을 원한다면 entries() 메서드로 이터레이터(iterator)를 만들 수 있습니다.
 var arr = [ 10, 20, 30 ];
 
 for (let [idx,val] of arr.entries()) {
@@ -179,6 +230,13 @@ for (let [idx,val] of arr.entries()) {
 // [1]: 20
 // [2]: 30
 ```
+
+- **참조**:
+  - [Object.entries()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/entries)
+  - [Array.prototype.entries()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)
+  - [Map.prototype.entries()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Map/entries)
+  - [NodeList.entries()](https://developer.mozilla.org/ko/docs/Web/API/NodeList/entries)
+  - [FormData.entries()](https://developer.mozilla.org/ko/docs/Web/API/FormData/entries)
 
 <br>
 
@@ -190,6 +248,8 @@ for (let [idx,val] of arr.entries()) {
 <br>
 
 ## 3.2 클로저(closure)
+
+자바스크립트에서 클로저는 자신의 스코프, 외부 함수의 스코프, 그리고 전역 스코프에 접근할 수 있는 함수입니다.
 
 ```js
 function greeting(msg) {
@@ -231,6 +291,7 @@ incBy3();       // 6
 incBy3();       // 9
 ```
 
+클로저는 콜백과 같은 비동기 코드에서 특히 흔히 볼 수 있습니다.
 
 ```js
 function getSomeData(url) {
@@ -245,14 +306,16 @@ getSomeData("<https://some.url/wherever>");
 // Response (from <https://some.url/wherever>): ...
 ```
 
-
 ```js
 for (let [idx,btn] of buttons.entries()) {
     btn.addEventListener("click",function onClick(){
-       console.log(`Clicked on button (${ idx })!`);
+       console.log(`${ idx }번째 버튼 클릭!`);
     });
 }
 ```
+
+> **저자曰:**<br>
+> JavaScript에서 클로저는 거의 필수적이며, 클로저를 사용하지 않은 복잡한 프로그래밍을 상상하기 어렵습니다. 클로저에 대한 이해가 부족하다면, 추가적인 자료를 참고하는 것이 좋습니다.
 
 <br>
 
