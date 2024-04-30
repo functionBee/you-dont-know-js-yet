@@ -249,6 +249,8 @@ for (let [idx,val] of arr.entries()) {
 
 ## 3.2 클로저(closure)
 
+자바스크립트에서 클로저는 자신의 스코프, 외부 함수의 스코프, 그리고 전역 스코프에 접근할 수 있는 함수입니다.
+
 ```js
 function greeting(msg) {
     return function who(name) {
@@ -289,6 +291,7 @@ incBy3();       // 6
 incBy3();       // 9
 ```
 
+클로저는 콜백과 같은 비동기 코드에서 특히 흔히 볼 수 있습니다.
 
 ```js
 function getSomeData(url) {
@@ -303,14 +306,8 @@ getSomeData("<https://some.url/wherever>");
 // Response (from <https://some.url/wherever>): ...
 ```
 
-
-```js
-for (let [idx,btn] of buttons.entries()) {
-    btn.addEventListener("click",function onClick(){
-       console.log(`Clicked on button (${ idx })!`);
-    });
-}
-```
+> **저자曰:**<br>
+> JavaScript에서 클로저는 거의 필수적이며, 클로저를 사용하지 않은 복잡한 프로그래밍을 상상하기 어렵습니다. 클로저에 대한 이해가 부족하다면, 추가적인 자료를 참고하는 것이 좋습니다.
 
 <br>
 
