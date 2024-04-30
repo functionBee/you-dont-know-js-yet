@@ -306,6 +306,14 @@ getSomeData("<https://some.url/wherever>");
 // Response (from <https://some.url/wherever>): ...
 ```
 
+```js
+for (let [idx,btn] of buttons.entries()) {
+    btn.addEventListener("click",function onClick(){
+       console.log(`${ idx }번째 버튼 클릭!`);
+    });
+}
+```
+
 > **저자曰:**<br>
 > JavaScript에서 클로저는 거의 필수적이며, 클로저를 사용하지 않은 복잡한 프로그래밍을 상상하기 어렵습니다. 클로저에 대한 이해가 부족하다면, 추가적인 자료를 참고하는 것이 좋습니다.
 
