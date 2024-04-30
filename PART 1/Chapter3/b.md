@@ -158,30 +158,32 @@ while(!next.done) {
 
 ### 3.1.2 이터러블(iterable)
 
+- 이터러블은 순회할 수 있는 값을 뜻합니다.
+- 자바스크립트(ES6)에서는 문자열, 배열, 맵, 세트와 같은 기본 데이터 구조가 반복 가능합니다.
+- 배열과 문자열은 반복될 수 있으며, 스프레드 연산자(`...`)를 통해 배열을 얕은 복사를 할 수 있습니다.
+
 ```js
-// 배열은 반복 가능합니다.
+// 배열
 var arr = [ 10, 20, 30 ];
-
 for (let val of arr) {
-    console.log(`Array value: ${ val }`);
+    console.log(`배열 값: ${ val }`);
 }
-// Array value: 10
-// Array value: 20
-// Array value: 30
-```
 
-```js
-var arrCopy = [ ...arr ];
-```
+// 배열 복사
+var arrCopy = [...arr];
 
-```js
+// 문자열
 var greeting = "Hello world!";
+
+// 스프레드 연산자를 사용하여 한 번에 한 문자씩 문자열의 문자를 반복
 var chars = [ ...greeting ];
 
-chars;
+console.log(chars); 
 // [ "H", "e", "l", "l", "o", " ",
 //   "w", "o", "r", "l", "d", "!" ]
 ```
+
+- `Map` 데이터 구조는 객체 키와 값을 연결하고 기본적으로 항목(키-값 튜플)을 반복합니다
 
 ```js
 // 두 개의 DOM 요소, `btn1`과 `btn2`가 주어졌습니다.
@@ -189,7 +191,11 @@ chars;
 var buttonNames = new Map();
 buttonNames.set(btn1,"Button 1");
 buttonNames.set(btn2,"Button 2");
+```
 
+- `for..of` 루프에서 "배열 디스트럭처링" ([btn,btnName])을 사용하여 튜플을 키/값 쌍으로 소비할 수 있습니다.
+
+```js
 for (let [btn,btnName] of buttonNames) {
     btn.addEventListener("click",function onClick(){
         console.log(`Clicked ${ btnName }`);
@@ -198,6 +204,7 @@ for (let [btn,btnName] of buttonNames) {
 ```
 
 ```js
+// buttonNames 맵의 값만 소비하려면 values()를 호출하여 값만 있는 이터레이터(iterator)를 얻을 수 있습니다.
 for (let btnName of buttonNames.values()) {
     console.log(btnName);
 }
@@ -206,6 +213,7 @@ for (let btnName of buttonNames.values()) {
 ```
 
 ```js
+// 또는 배열 반복에서 인덱스 및 값을 원한다면 entries()메서드로 이터레이터(iterator)를 만들 수 있습니다.
 var arr = [ 10, 20, 30 ];
 
 for (let [idx,val] of arr.entries()) {
