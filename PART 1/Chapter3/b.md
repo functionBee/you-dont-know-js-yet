@@ -249,7 +249,9 @@ for (let [idx,val] of arr.entries()) {
 
 ## 3.2 클로저(closure)
 
-자바스크립트에서 클로저는 자신의 스코프, 외부 함수의 스코프, 그리고 전역 스코프에 접근할 수 있는 함수입니다.
+클로저는 함수와 그 함수가 선언될 때의 렉시컬 환경(Lexical Environment)과의 조합입니다. 이 렉시컬 환경은 해당 함수가 선언된 위치의 변수 스코프를 포함합니다. 함수가 클로저를 형성하는 중요한 특징은, 외부 함수가 반환된 후에도 외부 함수 스코프에 있던 변수에 접근할 수 있다는 점입니다.
+
+클로저는 실행 컨텍스트의 외부 환경 참조(Outer Environment Reference)를 사용하여 만들어집니다. 외부 함수의 실행 컨텍스트가 스택에서 제거되더라도, 외부 환경에 있는 변수는 여전히 접근 가능하며, 내부 함수에서 사용될 때까지 메모리에 남아 있습니다. 이것은 내부 함수가 해당 변수의 참조를 유지하기 때문입니다
 
 ```js
 function greeting(msg) {
@@ -271,6 +273,16 @@ howdy("Grant");
 // Howdy, Grant!
 ```
 
+**실행 컨텍스트 생성과 클로저 형성:**
+- `greeting` 함수 호출: `greeting` 함수가 "Hello"와 "Howdy"라는 인자와 함께 각각 호출됩니다. 각 호출 시, `greeting` 함수의 실행 컨텍스트가 생성되고, 이 컨텍스트는 자체 변수 환경을 가집니다. 이 환경에는 인자 msg가 포함되며, 각각 "Hello"와 "Howdy"로 설정됩니다.
+- 클로저 반환: `greeting` 함수는 `who`라는 내부 함수를 반환합니다. `who` 함수는 클로저입니다. 왜냐하면 `who`는 자신이 생성될 때의 렉시컬 환경을 참조하기 때문입니다. 이 렉시컬 환경은 greeting 함수의 변수 환경을 포함하며, 이 환경에는 `msg` 변수가 존재합니다.
+- `who` 함수 실행:
+  - `hello`와 `howdy` 변수는 각각 `greeting` 함수로부터 반환된 `who` 함수의 인스턴스입니다. 이 인스턴스들은 각각 자신들의 msg 값("Hello" 또는 "Howdy")에 대한 참조를 유지합니다.
+  - `hello("Kyle")` 또는 `howdy("Grant")`와 같이 호출될 때, `who` 함수의 실행 컨텍스트가 생성됩니다. 이 컨텍스트 내에서는 name 변수에 전달된 인자가 설정됩니다.
+  - 함수 내부에서 `${msg}, ${name}!`를 출력하기 위해 msg와 name에 접근합니다. 여기서 name은 who의 지역 변수이며, msg는 클로저를 통해 접근되는 greeting의 변수입니다.
+
+> 이 예제에서 중요한 점은, `greeting` 함수의 실행 컨텍스트가 종료된 후에도 `msg` 변수가 사라지지 않는다는 것입니다. `who` 함수는 `greeting` 함수의 변수 환경에 대한 참조를 유지하고 있으므로, `msg`는 메모리에 계속 남아 있게 됩니다. 이로 인해 `hello` 또는 `howdy`를 호출할 때마다 해당 메시지에 접근할 수 있습니다.
+
 ```js
 function counter(step = 1) {
     var count = 0;
@@ -290,11 +302,38 @@ incBy3();       // 3
 incBy3();       // 6
 incBy3();       // 9
 ```
+> 두 번째 예제에서 counter 함수는 count 변수를 초기화하고 단계 증가를 정의합니다. 이후 클로저 increaseCount를 반환합니다:
 
-클로저는 콜백과 같은 비동기 코드에서 특히 흔히 볼 수 있습니다.
+- 외부 함수 스코프: count와 step은 외부 함수 counter의 변수입니다.
+- 클로저: increaseCount 함수는 count와 step을 포착하는 클로저로, 호출될 때마다 count 변수에 접근하고 수정합니다. 클로저 덕분에 함수 호출 사이에 count의 상태가 유지되어, 클로저가 생성될 때 정의된 step에 따라 count를 지속적으로 업데이트할 수 있습니다.
+
+<br>
+
+**클로저와 비동기 코드**
+
+클로저는 콜백과 같은 비동기 코드에서 특히 흔히 볼 수 있습니다. 이러한 클로저를 통해 비동기 작업의 컨텍스트를 유지하며, 필요한 데이터를 안전하게 보관하고 접근할 수 있습니다.
+
+```js
+// 비동기 API 호출과 클로저: 
+// 클로저는 API 호출이 시작된 시점의 환경을 "캡처"하여, 요청이 완료되었을 때 그 환경을 그대로 사용할 수 있게 해 줍니다.
+function fetchData(userId) {
+    const url = `https://api.example.com/users/${userId}`;
+
+    // 비동기 요청을 시작하기 전에 클로저를 통해 userId를 캡처
+    fetch(url).then(response => response.json()).then(data => {
+        // 여기서 클로저를 통해 userId에 계속 접근할 수 있음
+        console.log(`사용자 ${userId}의 데이터:`, data);
+    }).catch(error => {
+        console.error(`사용자 ${userId}의 데이터를 불러오는 데 실패했습니다:`, error);
+    });
+}
+
+fetchData(1);
+```
 
 ```js
 function getSomeData(url) {
+    // 클로저를 통해 url을 캡처
     ajax(url,function onResponse(resp){
         console.log(
             `Response (from ${ url }): ${ resp }`
@@ -306,7 +345,29 @@ getSomeData("<https://some.url/wherever>");
 // Response (from <https://some.url/wherever>): ...
 ```
 
+<br>
+
+**비동기 루프 처리**
+
+루프 내에서 비동기 작업을 수행할 때 각 반복마다 클로저를 사용하여 이터레이션의 상태를 안전하게 유지할 수 있습니다.
+
 ```js
+const files = ['file1.txt', 'file2.txt', 'file3.txt'];
+
+files.forEach((file, index) => {
+    // 비동기 함수 내부에서 클로저를 사용하여 각 파일 이름과 인덱스를 캡처
+    readFile(file, (err, content) => {
+        if (err) {
+            console.error(`${file} 읽기 실패:`, err);
+            return;
+        }
+        console.log(`${file} (${index + 1}번째 파일)의 내용:`, content);
+    });
+});
+```
+
+```js
+// 클로저를 사용하여 이터레이션 상태를 유지
 for (let [idx,btn] of buttons.entries()) {
     btn.addEventListener("click",function onClick(){
        console.log(`${ idx }번째 버튼 클릭!`);
@@ -321,6 +382,14 @@ for (let [idx,btn] of buttons.entries()) {
 
 ## 3.3 `this` 키워드
 
+-  `this` 키워드는 JavaScript에서 매우 강력하지만 종종 잘못 이해되는 개념입니다. 많은 개발자들이 `this`가 항상 함수 자체나, 메서드가 속한 객체 인스턴스를 참조한다고 생각하지만, 실제로는 그렇지 않습니다.
+
+-  함수는 자신이 정의된 범위(scope)에 *부착*됩니다. 범위는 변수가 어디서 접근 가능한지를 결정하는 정적인 환경입니다.
+
+- **실행 컨텍스트와 `this`**: 함수의 실행 컨텍스트는 해당 함수가 실행될 때 생성되며, 함수의 동작 방식에 영향을 미칩니다. `this` 키워드는 실행 컨텍스트를 통해 노출되며, 함수가 호출될 때마다 `this`의 값이 결정됩니다. 이는 `this`가 가리키는 값이 동적으로 변할 수 있음을 의미합니다.
+
+- **실행 컨텍스트의 동적 성질**: 실행 컨텍스트는 함수 실행 중에 사용할 수 있는 속성들을 포함한 구체적인 객체로 간주할 수 있습니다. 이는 함수가 실행되는 상황에 따라 다르게 동작할 수 있게 해줍니다.
+
 
 ```js
 function classroom(teacher) {
@@ -333,6 +402,8 @@ function classroom(teacher) {
 var assignment = classroom("Kyle");
 ```
 
+
+> 예를 들어, `classroom(..)` 함수는 `this`를 참조하지 않지만, 그 내부에 정의된 `study()` 함수는 `this`를 참조할 수 있습니다.
 
 ```js
 assignment();
@@ -349,6 +420,8 @@ homework.assignment();
 // Kyle says to study JS
 ```
 
+> `assignment`라는 함수가 `homework` 객체의 속성으로 설정되고 `homework.assignment()`로 호출될 때, `this`는 `homework` 객체를 참조합니다.
+
 ```js
 var otherHomework = {
     topic: "Math"
@@ -358,10 +431,44 @@ assignment.call(otherHomework);
 // Kyle says to study Math
 ```
 
+> `call(..)` 메서드를 사용하면 함수 호출 시 `this` 참조를 명시적으로 설정할 수 있습니다. 이를 통해 함수를 다양한 컨텍스트에서 재사용할 수 있습니다.
+
+
+`this`를 인식하는 함수는 다양한 객체의 데이터를 사용하여 같은 함수를 더 유연하게 재사용할 수 있습니다.
+
+```js
+function classroom(teacher) {
+    return {
+        study() {
+            console.log(
+                `${ teacher } says to study ${ this.topic }`
+            );
+        }
+    };
+}
+
+var homework = classroom("Kyle");
+homework.topic = "JS";
+homework.study();
+// Kyle says to study JS
+
+var otherHomework = {
+    topic: "Math",
+    assignment: homework.study
+};
+
+otherHomework.assignment();
+// Kyle says to study Math
+```
+
 
 <br>
 
 ## 3.4 프로토타입
+
+프로토타입은 객체의 특성으로, 특히 속성 접근 해결에서 특징적입니다. 이것은 객체 생성시 두 객체 사이의 숨겨진 연결입니다.
+
+이 "프로토타입 체인"은 속성/메소드 접근이 객체 B에 있지 않아도 다른 객체 A로 위임될 수 있게 해줍니다. 이를 통해 객체들이 작업을 수행하는데 협력할 수 있습니다.
 
 ```js
 var homework = {
